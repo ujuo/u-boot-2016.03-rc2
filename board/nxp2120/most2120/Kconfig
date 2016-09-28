@@ -1,0 +1,15 @@
+if TARGET_MOST2120
+
+config SYS_BOARD
+	default "most2120"
+	
+config SYS_VENDOR
+	default "nxp2120"
+	
+config SYS_SOC
+	default "nxp2120"
+	
+config SYS_CONFIG_NAME
+	default "most2120"
+	
+endif

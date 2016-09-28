@@ -1,0 +1,21 @@
+if ARCH_NXP2120
+
+config TARGET_MOST2120
+	bool "most2120 board"
+	
+config NAND_NXP2120
+	bool "nxp2120 nand"
+	default y
+	
+config SYS_I2C_NXP2120
+	bool "nxp2120 i2c"
+	default y
+	
+config NXP2120_SERIAL
+	bool "nxp2120 serial"
+	default y
+	
+source "board/nxp2120/most2120/Kconfig"
+
+
+endif

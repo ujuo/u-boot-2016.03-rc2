@@ -1,0 +1,33 @@
+config USB_EMUL
+	bool "Support for USB device emulation"
+	depends on DM_USB && SANDBOX
+	help
+	  Since sandbox does not have access to a real USB bus, it is possible
+	  to use device emulators instead. This allows testing of the USB
+	  stack on sandbox without needing a real device, or any host machine
+	  USB resources.
+
+config USB_HOST_ETHER
+	bool "Support for USB host ethernet"
+	default y
+	
+config USB_ETHER_ASIX
+	bool "Support for USB ethernet ASIX"
+	default n
+	
+config USB_ETHER_ASIX88179
+	bool "Support for USB ethernet ASIX88179"
+	default n
+
+config USB_ETHER_MCS7830
+	bool "Support for USB ethernet MCS7830"
+	default n
+
+config USB_ETHER_SMSC95XX
+	bool "Support for USB ethernet SMSC95XX"
+	default n
+
+config USB_ETHER_RTL8152
+	bool "Support for USB ethernet RTL8152"
+	depends on ARCH_SUNXI
+	default n
