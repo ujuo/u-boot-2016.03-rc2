@@ -81,5 +81,5 @@ obj-$(CONFIG_NAND_FSL_IFC) += fsl_ifc_spl.o
 obj-$(CONFIG_NAND_MXC) += mxc_nand_spl.o
 obj-$(CONFIG_NAND_MXS) += mxs_nand_spl.o mxs_nand.o
 obj-$(CONFIG_SPL_NAND_SUNXI) += sunxi_nand_spl.o
-
+obj-$(CONFIG_SPL_NAND_NXP4330) += nxp4330_nand_spl.o nxp4330_nand_ecc_spl.o
 endif # drivers

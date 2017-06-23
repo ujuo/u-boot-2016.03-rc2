@@ -725,9 +725,9 @@ config ARCH_NXP2120
 	bool "Support Nexell nxp2120"
 	select CPU_ARM1176
 	
-	
 config ARCH_NXP4330
 	bool "Support Nexell nxp4330"
+	select SUPPORT_SPL
 	select CPU_V7
 	
 endchoice
@@ -790,7 +790,7 @@ source "arch/arm/imx-common/Kconfig"
 
 source "arch/arm/mach-nxp2120/Kconfig"
 
-#source "arch/arm/mach-nxp4330/Kconfig"
+source "arch/arm/mach-nxp4330/Kconfig"
 
 
 source "board/BuR/kwb/Kconfig"

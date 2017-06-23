@@ -425,7 +425,7 @@ static int nand_hw_ecc_read_page(struct mtd_info *mtd, struct nand_chip *chip,
 			err = ecc_decode_error();
 
 			if (err) { /* err : Temporary read check */
-				ERROUT("ecc_decode_error\n");
+				DBGOUT("ecc_decode_error\n");
 				/* check erase status */
 				for (i = 0 ; eccbytes > i; i++)
 					if (0xFF != ecccode[i]) break;

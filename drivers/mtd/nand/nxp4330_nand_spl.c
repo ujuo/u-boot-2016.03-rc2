@@ -772,12 +772,21 @@ static int nand_is_bad_block(struct mtd_info *mtd, int block)
 	 DBGOUT("nand_is_no bad_block \n");	
 	 return 0;
 }
-
+extern unsigned char boot_mode_sel(void);
 int spl_start_uboot(void)
 {
-	int boot_mode = 0; //mode 0 : uboot, mode 1: kernel
-	if(boot_mode == 0)
-		return 1;
+	unsigned char mode=0;
+	mode = boot_mode_sel();
+
+	if(mode == 0x00){
+//		printf("uboot mode 0x%X\n", mode);		
+		return 1; //uboot
+	} else {
+		return 0;	//kernel
+	}
+//	int boot_mode = 0; //mode 0 : uboot, mode 1: kernel
+//	if(boot_mode == 0)
+//		return 1;
 	return 0;
 }
 
@@ -795,7 +804,7 @@ static int load_from_nand(int dev, unsigned int offs,unsigned int size, void *ds
 	block = offs/CONFIG_SYS_NAND_BLOCK_SIZE;
 	lastblock = (offs+size-1)/CONFIG_SYS_NAND_BLOCK_SIZE;
 	page = (offs % CONFIG_SYS_NAND_BLOCK_SIZE)/CONFIG_SYS_NAND_PAGE_SIZE;
-	printf("load addr 0x%X, block %d lastblock %d page %d\n", dst,block,lastblock,page);
+//	printf("load addr 0x%X, block %d lastblock %d page %d\n", dst,block,lastblock,page);
 	
 	NX_MCUS_SetNFCSEnable(CTRUE);
 //	printf("enable pagecnt %d\n",CONFIG_SYS_NAND_PAGE_COUNT);
@@ -818,7 +827,7 @@ static int load_from_nand(int dev, unsigned int offs,unsigned int size, void *ds
 //		printf("block %d\n", block);
 	}
 	NX_MCUS_SetNFCSEnable(CFALSE);
-	printf("load done\n");
+//	printf("load done\n");
 
 	return 0;
 }
@@ -828,8 +837,13 @@ int nand_spl_load_image(unsigned int offs, unsigned int size, void* dst)
 	int i=0;
 
 	if(size == 0x40){
-		printf("we don't need to load uboot header\n");
-		return 0;
+		if(spl_start_uboot() ==  0){
+		//	printf("kernel load\n");
+		} else {
+			printf("u-boot mode\n");
+		//	printf("we don't need to load uboot header\n");
+			return 0;
+		}
 	}
 	unsigned int *dbg1 = (unsigned short int *)0x4C000000;		
 	for(i=0; i<10; i++){
@@ -843,6 +857,7 @@ int nand_spl_load_image(unsigned int offs, unsigned int size, void* dst)
 
 	
 	load_from_nand(0,offs,size,(void*)dst);
+
 	return 0;
 	
 }
