@@ -144,7 +144,6 @@ void board_init_f(unsigned long bootflag)
 
 	if (0x0 == *val){
 		kernel_mode = 0x00;
-//		printf("ctrl+u \n");
 //		printf("uboot load\n");
 		spl_nand_load_image();
 		
